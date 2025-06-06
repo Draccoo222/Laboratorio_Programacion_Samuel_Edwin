@@ -56,46 +56,44 @@ public class MemoramaJuego extends javax.swing.JFrame {
             botones[i].putClientProperty("imagen", imagenesMezcladas[i]);
         }
 
-     for (JButton boton : botones) {
-        boton.addActionListener(e -> {
-            if (bloqueado) return; // Evita clics durante espera
+for (JButton boton : botones) {
+    boton.addActionListener(e -> {
+        if (bloqueado) return;
 
-            boolean yaDescubierto = (boolean) boton.getClientProperty("descubierto");
-            if (yaDescubierto || boton == primeraSeleccion) return; // Ya fue seleccionado
+        Object estado = boton.getClientProperty("descubierto");
+        boolean yaDescubierto = estado != null && (boolean) estado;
 
-            // Mostrar imagen real
-            String nombreImagen = (String) boton.getClientProperty("imagen");
-            ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
-            boton.setIcon(iconoReal);
+        if (yaDescubierto || boton == primeraSeleccion) return;
 
-            if (primeraSeleccion == null) {
-                primeraSeleccion = boton;
+        String nombreImagen = (String) boton.getClientProperty("imagen");
+        ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
+        boton.setIcon(iconoReal);
+
+        if (primeraSeleccion == null) {
+            primeraSeleccion = boton;
+        } else {
+            segundaSeleccion = boton;
+            bloqueado = true;
+
+            String img1 = (String) primeraSeleccion.getClientProperty("imagen");
+            String img2 = (String) segundaSeleccion.getClientProperty("imagen");
+
+            if (img1.equals(img2)) {
+                primeraSeleccion.putClientProperty("descubierto", true);
+                segundaSeleccion.putClientProperty("descubierto", true);
+                resetSeleccion();
             } else {
-                segundaSeleccion = boton;
-                bloqueado = true;
-
-                // Comparar imágenes
-                String img1 = (String) primeraSeleccion.getClientProperty("imagen");
-                String img2 = (String) segundaSeleccion.getClientProperty("imagen");
-
-                if (img1.equals(img2)) {
-                    // Coinciden, se quedan descubiertas
-                    primeraSeleccion.putClientProperty("descubierto", true);
-                    segundaSeleccion.putClientProperty("descubierto", true);
+                Timer timer = new Timer(1000, evt -> {
+                    primeraSeleccion.setIcon(reverso);
+                    segundaSeleccion.setIcon(reverso);
                     resetSeleccion();
-                } else {
-                    // No coinciden, esperar 1 segundo y ocultar
-                    Timer timer = new Timer(1000, evt -> {
-                        primeraSeleccion.setIcon(reverso);
-                        segundaSeleccion.setIcon(reverso);
-                        resetSeleccion();
-                    });
-                    timer.setRepeats(false);
-                    timer.start();
-                }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
-        });
-    }
+        }
+    });
+}
     }
     
     
