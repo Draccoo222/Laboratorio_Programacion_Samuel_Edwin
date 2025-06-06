@@ -4,24 +4,41 @@
  */
 package laboratorio_programacion_samuel_edwin;
 
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author unwir
  */
 public class MemoramaJuego extends javax.swing.JFrame {
-    
-    String imagenesOriginales[] = {"Baseball_card.png", "blueprint.png", "Canio.png", "Card_sharp.png", "Chicot.png",
-        "Fibonacci.png", "Gros_Michel.png", "Hack.png", "joker.png", "mime.png", "Perxeo.png", "Smiley_face.png", 
-        "sock_and_buskin.png", "supernova.png", "Triboulet.png", "vagabond.png", "Vampire.png", "yorick.png"};
 
-    Tablero tablero = new Tablero();
-    String imagenesDuplicadas[] = tablero.imagenesDuplicadas(imagenesOriginales);
-    
-    String imagenesMezcladas[] = tablero.imagenesMezcladas(imagenesDuplicadas);
-    
     public MemoramaJuego() {
         initComponents();
-        
+
+        JButton[] botones = {
+            btnCarta, btnCarta1, btnCarta2, btnCarta3, btnCarta4, btnCarta5,
+            btnCarta6, btnCarta7, btnCarta8, btnCarta9, btnCarta10, btnCarta11,
+            btnCarta12, btnCarta13, btnCarta14, btnCarta15, btnCarta16, btnCarta17,
+            btnCarta18, btnCarta19, btnCarta20, btnCarta21, btnCarta22, btnCarta23,
+            btnCarta24, btnCarta25, btnCarta26, btnCarta27, btnCarta28, btnCarta29,
+            btnCarta30, btnCarta31, btnCarta32, btnCarta33, btnCarta34, btnCarta35
+        };
+
+        String imagenesOriginales[] = {"Baseball_card.png", "blueprint.png", "Canio.png", "Card_sharp.png", "Chicot.png",
+            "Fibonacci.png", "Gros_Michel.png", "Hack.png", "joker.png", "mime.png", "Perxeo.png", "Smiley_face.png",
+            "sock_and_buskin.png", "supernova.png", "Triboulet.png", "vagabond.png", "Vampire.png", "yorick.png"};
+
+        Tablero tablero = new Tablero();
+        String imagenesDuplicadas[] = tablero.imagenesDuplicadas(imagenesOriginales);
+
+        String imagenesMezcladas[] = tablero.imagenesMezcladas(imagenesDuplicadas);
+
+        for (int i = 0; i < botones.length; i++) {
+            String ruta = "/cartas/" + imagenesMezcladas[i];
+            java.net.URL url = getClass().getResource(ruta);
+            botones[i].setIcon(new ImageIcon(url));
+        }
     }
 
     /**
