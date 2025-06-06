@@ -15,7 +15,11 @@ public class MemoramaJuego extends javax.swing.JFrame {
 
     public MemoramaJuego() {
         initComponents();
+        asignarImagenes();
 
+    }
+    
+    private void asignarImagenes(){
         JButton[] botones = {
             btnCarta, btnCarta1, btnCarta2, btnCarta3, btnCarta4, btnCarta5,
             btnCarta6, btnCarta7, btnCarta8, btnCarta9, btnCarta10, btnCarta11,
@@ -37,6 +41,15 @@ public class MemoramaJuego extends javax.swing.JFrame {
         for (int i = 0; i < botones.length; i++) {
             botones[i].setIcon(new ImageIcon(getClass().getResource("/cartas/" + imagenesMezcladas[i])));
         }
+        
+        for (JButton boton : botones) {
+            boton.addActionListener(e -> {
+                String nombreImagen = (String) boton.getClientProperty("imagen");
+                ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
+                boton.setIcon(iconoReal);
+            });
+    }
+    
     }
 
     /**
