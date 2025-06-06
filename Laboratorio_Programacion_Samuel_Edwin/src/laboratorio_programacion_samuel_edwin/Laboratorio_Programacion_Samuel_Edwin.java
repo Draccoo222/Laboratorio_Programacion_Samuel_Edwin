@@ -15,6 +15,7 @@ public class Laboratorio_Programacion_Samuel_Edwin {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("Hola mundo");
     }
     
 }
