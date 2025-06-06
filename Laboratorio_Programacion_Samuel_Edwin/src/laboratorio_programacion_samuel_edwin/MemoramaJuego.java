@@ -9,12 +9,19 @@ package laboratorio_programacion_samuel_edwin;
  * @author unwir
  */
 public class MemoramaJuego extends javax.swing.JFrame {
+    
+    String imagenesOriginales[] = {"Baseball_card.png", "blueprint.png", "Canio.png", "Card_sharp.png", "Chicot.png",
+        "Fibonacci.png", "Gros_Michel.png", "Hack.png", "joker.png", "mime.png", "Perxeo.png", "Smiley_face.png", 
+        "sock_and_buskin.png", "supernova.png", "Triboulet.png", "vagabond.png", "Vampire.png", "yorick.png"};
 
-    /**
-     * Creates new form MemoramaJuego
-     */
+    Tablero tablero = new Tablero();
+    String imagenesDuplicadas[] = tablero.imagenesDuplicadas(imagenesOriginales);
+    
+    String imagenesMezcladas[] = tablero.imagenesMezcladas(imagenesDuplicadas);
+    
     public MemoramaJuego() {
         initComponents();
+        
     }
 
     /**
