@@ -7,6 +7,7 @@ package laboratorio_programacion_samuel_edwin;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 /**
  *
  * @author unwir
@@ -18,9 +19,15 @@ public class MemoramaJuego extends javax.swing.JFrame {
     private JButton segundaSeleccion = null;
     private boolean bloqueado = false;
     
+    private int parejasEncontradas = 0;
+    private int parejasTotales = 18;
+    
+    
     public MemoramaJuego() {
         initComponents();
         asignarImagenes();
+        intentosNum = 10;
+        intentos.setText("NUMERO DE INTENTOS " + 10);
 
     }
     
@@ -58,12 +65,18 @@ public class MemoramaJuego extends javax.swing.JFrame {
 
 for (JButton boton : botones) {
     boton.addActionListener(e -> {
+        intentos.setText("NUMERO DE INTENTOS " + intentosNum);
+        verificarVictoria();
         if (bloqueado) return;
 
         Object estado = boton.getClientProperty("descubierto");
         boolean yaDescubierto = estado != null && (boolean) estado;
 
-        if (yaDescubierto || boton == primeraSeleccion) return;
+        if (yaDescubierto || boton == primeraSeleccion){ 
+           
+            
+            return;
+        }
 
         String nombreImagen = (String) boton.getClientProperty("imagen");
         ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
@@ -79,10 +92,12 @@ for (JButton boton : botones) {
             String img2 = (String) segundaSeleccion.getClientProperty("imagen");
 
             if (img1.equals(img2)) {
+                parejasEncontradas++;
                 primeraSeleccion.putClientProperty("descubierto", true);
                 segundaSeleccion.putClientProperty("descubierto", true);
                 resetSeleccion();
             } else {
+                intentosNum--;
                 Timer timer = new Timer(1000, evt -> {
                     primeraSeleccion.setIcon(reverso);
                     segundaSeleccion.setIcon(reverso);
@@ -95,6 +110,24 @@ for (JButton boton : botones) {
     });
 }
     }
+    
+    
+        private void bloquearTablero(JButton[] botones) {
+        for (JButton boton : botones) {
+            boton.setEnabled(false);
+        }
+    }
+        
+        
+        private void verificarVictoria(){
+            if(parejasEncontradas == parejasTotales){
+                JOptionPane.showMessageDialog(this, "GANASTE!!!!");
+                
+            }else if (intentosNum == 0) {
+                JOptionPane.showMessageDialog(this, "PERDISTE!!!!");
+            }
+        
+        }
     
     
     /**
