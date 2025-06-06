@@ -6,7 +6,7 @@ package laboratorio_programacion_samuel_edwin;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-
+import javax.swing.Timer;
 /**
  *
  * @author unwir
@@ -14,11 +14,22 @@ import javax.swing.ImageIcon;
 public class MemoramaJuego extends javax.swing.JFrame {
     int intentosNum;
     
+    private JButton primeraSeleccion = null;
+    private JButton segundaSeleccion = null;
+    private boolean bloqueado = false;
+    
     public MemoramaJuego() {
         initComponents();
         asignarImagenes();
 
     }
+    
+        private void resetSeleccion() {
+        primeraSeleccion = null;
+        segundaSeleccion = null;
+        bloqueado = false;
+    }
+
     
     private void asignarImagenes(){
         JButton[] botones = {
@@ -36,23 +47,58 @@ public class MemoramaJuego extends javax.swing.JFrame {
 
         Tablero tablero = new Tablero();
         String imagenesDuplicadas[] = tablero.imagenesDuplicadas(imagenesOriginales);
-
         String imagenesMezcladas[] = tablero.imagenesMezcladas(imagenesDuplicadas);
 
+        ImageIcon reverso = new ImageIcon(getClass().getResource("/cartas/cartaOculta.png"));
+
         for (int i = 0; i < botones.length; i++) {
-            botones[i].setIcon(new ImageIcon(getClass().getResource("/cartas/" + imagenesMezcladas[i])));
+            botones[i].setIcon(reverso);
+            botones[i].putClientProperty("imagen", imagenesMezcladas[i]);
         }
-        
-        for (JButton boton : botones) {
-            boton.addActionListener(e -> {
-                String nombreImagen = (String) boton.getClientProperty("imagen");
-                ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
-                boton.setIcon(iconoReal);
-            });
+
+     for (JButton boton : botones) {
+        boton.addActionListener(e -> {
+            if (bloqueado) return; // Evita clics durante espera
+
+            boolean yaDescubierto = (boolean) boton.getClientProperty("descubierto");
+            if (yaDescubierto || boton == primeraSeleccion) return; // Ya fue seleccionado
+
+            // Mostrar imagen real
+            String nombreImagen = (String) boton.getClientProperty("imagen");
+            ImageIcon iconoReal = new ImageIcon(getClass().getResource("/cartas/" + nombreImagen));
+            boton.setIcon(iconoReal);
+
+            if (primeraSeleccion == null) {
+                primeraSeleccion = boton;
+            } else {
+                segundaSeleccion = boton;
+                bloqueado = true;
+
+                // Comparar imágenes
+                String img1 = (String) primeraSeleccion.getClientProperty("imagen");
+                String img2 = (String) segundaSeleccion.getClientProperty("imagen");
+
+                if (img1.equals(img2)) {
+                    // Coinciden, se quedan descubiertas
+                    primeraSeleccion.putClientProperty("descubierto", true);
+                    segundaSeleccion.putClientProperty("descubierto", true);
+                    resetSeleccion();
+                } else {
+                    // No coinciden, esperar 1 segundo y ocultar
+                    Timer timer = new Timer(1000, evt -> {
+                        primeraSeleccion.setIcon(reverso);
+                        segundaSeleccion.setIcon(reverso);
+                        resetSeleccion();
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                }
+            }
+        });
+    }
     }
     
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
