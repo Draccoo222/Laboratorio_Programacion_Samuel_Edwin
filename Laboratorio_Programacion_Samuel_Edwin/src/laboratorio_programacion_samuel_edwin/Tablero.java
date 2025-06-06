@@ -15,25 +15,27 @@ public class Tablero {
 
         return duplicadas;
     }
-    
+
     public String[] imagenesMezcladas(String[] imagenesDuplicadas) {
         Random random = new Random();
-        
-        int  tamanioDup = imagenesDuplicadas.length;
+
+        int tamanioDup = imagenesDuplicadas.length;
         String mezcladas[] = new String[tamanioDup];
-        
+
         for (int i = 0; i < tamanioDup; i++) {
             mezcladas[i] = imagenesDuplicadas[i];
         }
-        
-        for (int i = 0; i < mezcladas.length; i++) {
-        int j = (int)(Math.random() * mezcladas.length);
 
-        String temp = mezcladas[i];
-        mezcladas[i] = mezcladas[j];
-        mezcladas[j] = temp;
-    }
-        
+        int tamanioMezcladas = mezcladas.length;
+
+        for (int i = 0; i < tamanioMezcladas; i++) {
+            int j = random.nextInt(tamanioMezcladas);
+
+            String temp = mezcladas[i];
+            mezcladas[i] = mezcladas[j];
+            mezcladas[j] = temp;
+        }
+
         return mezcladas;
     }
 
