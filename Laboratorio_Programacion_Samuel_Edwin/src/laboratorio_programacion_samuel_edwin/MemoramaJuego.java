@@ -12,7 +12,8 @@ import javax.swing.ImageIcon;
  * @author unwir
  */
 public class MemoramaJuego extends javax.swing.JFrame {
-
+    int intentosNum;
+    
     public MemoramaJuego() {
         initComponents();
         asignarImagenes();
@@ -345,6 +346,9 @@ public class MemoramaJuego extends javax.swing.JFrame {
 
     private void reintentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reintentarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        MemoramaJuego jogo = new MemoramaJuego();
+        jogo.setVisible(true);
     }//GEN-LAST:event_reintentarActionPerformed
 
     /**
