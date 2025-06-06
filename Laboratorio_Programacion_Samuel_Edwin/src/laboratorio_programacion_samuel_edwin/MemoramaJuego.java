@@ -122,11 +122,17 @@ for (JButton boton : botones) {
         private void verificarVictoria(){
             if(parejasEncontradas == parejasTotales){
                 JOptionPane.showMessageDialog(this, "GANASTE!!!!");
+                this.dispose();
+                MemoramaJuego jogo = new MemoramaJuego();
+                jogo.setVisible(true);
                 
             }else if (intentosNum == 0) {
                 JOptionPane.showMessageDialog(this, "PERDISTE!!!!");
+                    this.dispose();
+                    MemoramaJuego jogo = new MemoramaJuego();
+                    jogo.setVisible(true);
             }
-        
+                
         }
     
     
