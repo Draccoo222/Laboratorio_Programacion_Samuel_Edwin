@@ -27,26 +27,55 @@ public class MemoramaJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
+        intentos = new javax.swing.JLabel();
+        reintentar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        intentos.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+
+        reintentar.setBackground(new java.awt.Color(0, 153, 153));
+        reintentar.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        reintentar.setForeground(new java.awt.Color(0, 0, 0));
+        reintentar.setText("Reiniciar Partida");
+        reintentar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reintentar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reintentarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(intentos, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(reintentar, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(reintentar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(intentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addContainerGap(635, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void reintentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reintentarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reintentarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,6 +113,8 @@ public class MemoramaJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel intentos;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton reintentar;
     // End of variables declaration//GEN-END:variables
 }
