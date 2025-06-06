@@ -35,9 +35,7 @@ public class MemoramaJuego extends javax.swing.JFrame {
         String imagenesMezcladas[] = tablero.imagenesMezcladas(imagenesDuplicadas);
 
         for (int i = 0; i < botones.length; i++) {
-            String ruta = "/cartas/" + imagenesMezcladas[i];
-            java.net.URL url = getClass().getResource(ruta);
-            botones[i].setIcon(new ImageIcon(url));
+            botones[i].setIcon(new ImageIcon(getClass().getResource("/cartas/" + imagenesMezcladas[i])));
         }
     }
 
